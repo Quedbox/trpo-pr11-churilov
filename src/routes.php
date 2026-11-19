@@ -6,7 +6,7 @@ $router->add('GET', '/', [$home, 'index']);
 $router->add('GET', '/about', [$home, 'about']);
 $router->add('GET', '/catalog', [$catalog, 'index']);
 $router->add('GET', '/product', [$catalog, 'show']);
-$router->add('GET', '/missing', function () { http_response_code(404); render('error', ['message' => 'Страница не найдена']); });
+$router->add('GET', '/missing', [new App\Controller\ErrorController(), 'notFound']);
 
 $cart = new App\Controller\CartController($repository, new App\Service\CartService($repository));
 $router->add('GET', '/cart', [$cart, 'index']);
