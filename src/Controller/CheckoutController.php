@@ -19,7 +19,7 @@ class CheckoutController {
         $methods = $this->methods(); $errors = $this->validator->validate($values, $methods);
         $details = $this->cart->details($_SESSION['cart']);
         if (!$details['rows']) $errors['cart'] = 'Корзина пуста';
-        if (!hash_equals($_SESSION['csrf'], (string)($_POST['csrf'] ?? ''))) $errors['csrf'] = 'Обновите форму и повторите отправку';
+        if (!is_string($_POST['csrf'] ?? null) || !hash_equals($_SESSION['csrf'], $_POST['csrf'])) $errors['csrf'] = 'Обновите форму и повторите отправку';
         if ($errors) { http_response_code(422); $this->show($values, $errors); return; }
         $path = $this->directory . '/orders.json';
         if (!is_file($path)) {
