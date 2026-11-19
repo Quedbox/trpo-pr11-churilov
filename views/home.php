@@ -1,0 +1,1 @@
+<h2><?= e($pages['store_name']) ?></h2><p><?= e($pages['tagline']) ?></p><img src="/shop-logo.svg" alt="Учебный магазин" width="320"><h3>Преимущества</h3><ul><?php foreach ($pages['benefits'] as $benefit): ?><li><?= e($benefit) ?></li><?php endforeach; ?></ul>
