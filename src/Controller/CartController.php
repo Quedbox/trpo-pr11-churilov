@@ -12,7 +12,7 @@ class CartController {
     public function update(): void {
         $id = filter_input(INPUT_POST, 'product_id', FILTER_VALIDATE_INT);
         $qty = filter_input(INPUT_POST, 'qty', FILTER_VALIDATE_INT);
-        $action = $_POST['action'] ?? 'add';
+        $action = is_string($_POST['action'] ?? null) ? $_POST['action'] : 'add';
         if (!$id || !$this->repository->find($id)) { http_response_code(404); \render('error', ['message'=>'Товар не найден']); return; }
         if ($action !== 'remove' && ($qty === false || $qty === null || $qty < 1)) { http_response_code(422); \render('error', ['message'=>'Количество должно быть положительным целым числом']); return; }
         if ($action === 'remove') unset($_SESSION['cart'][$id]);
